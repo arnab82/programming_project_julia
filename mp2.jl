@@ -55,4 +55,3 @@ end
 
 print("MP2 correlation E = ",sum(emp2)) 
 
-
