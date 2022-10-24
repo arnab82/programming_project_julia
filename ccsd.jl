@@ -1,7 +1,7 @@
 using Einsum
 using PyCall
 np=pyimport("numpy")
-include("hf_new.jl") 
+include("rhf.jl") 
 include("mp2.jl") 
 nofe=n_elec
 nocc=Int64((nofe//2)+(nofe%2))
@@ -12,12 +12,8 @@ function mo_to_aso(new_eri)
         for j in 1:(2*nbasis)
             for k in 1:(2*nbasis)
                 for l in 1:(2*nbasis)
-<<<<<<< HEAD
                     ASObasis[i,j,k,l]=(-(new_eri[floor(Int64,i/2+0.5),floor(Int64,k/2+0.5),floor(Int64,j/2+0.5),floor(Int64,l/2+0.5)])*(i%2==k%2)*(j%2==l%2)+(new_eri[floor(Int64,i/2+0.5),floor(Int64,l/2+0.5),floor(Int64,j/2+0.5),floor(Int64,k/2+0.5)])*(i%2==l%2)*(j%2==k%2))
                     #ASObasis[i,j,k,l]=(-(new_eri[floor(Int64,i/2+0.5),floor(Int64,k/2+0.5),floor(Int64,j/2+0.5),floor(Int64,l/2+0.5)])*(i%2==k%2)*(j%2==l%2)+(new_eri[floor(Int64,i/2+0.5),floor(Int64,l/2+0.5),floor(Int64,j/2+0.5),floor(Int64,k/2+0.5)])*(i%2==l%2)*(j%2==k%2))
-=======
-                    ASObasis[i,j,k,l]=((new_eri[floor(Int64,i/2+0.5),floor(Int64,k/2+0.5),floor(Int64,j/2+0.5),floor(Int64,l/2+0.5)])*(i%2==k%2)*(j%2==l%2)-(new_eri[floor(Int64,i/2+0.5),floor(Int64,l/2+0.5),floor(Int64,j/2+0.5),floor(Int64,k/2+0.5)])*(i%2==l%2)*(j%2==k%2))
->>>>>>> d2c4ff66096b719c66f3b1421f345f6a5b7e0e6a
                 end
             end
         end
@@ -25,16 +21,12 @@ function mo_to_aso(new_eri)
     return ASObasis
 end
 ASObasis=mo_to_aso(new_eri)
-<<<<<<< HEAD
 println("\nthe value of ASObasis is")#SIGN PROBLEM
 display(ASObasis)
 display(ASObasis[1,:,:,:])
 #println(size(ASObasis))
-=======
 println("the value of ASObasis is",ASObasis)#SIGN PROBLEM
 println(size(ASObasis))
->>>>>>> d2c4ff66096b719c66f3b1421f345f6a5b7e0e6a
-exit()
 function mo_to_cso(new_eri)
     h,nbasis=size(new_eri)
     CSObasis=zeros(Float64,2*nbasis,2*nbasis,2*nbasis,2*nbasis)
